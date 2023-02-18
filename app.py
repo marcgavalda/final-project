@@ -1,16 +1,10 @@
 from flask import Flask, render_template, request
 import openai
 import re
+import os 
 
-secrets_dict={}
-secrets = open('../secrets.txt')
-for line in secrets:
-    (key,val) = line.replace('\n','').split(';')
-    secrets_dict[key] = val
-
-
-openai.organization = secrets_dict['OpenAIorg']
-openai.api_key = secrets_dict['OpenAI']
+openai.organization = os.environ.get('API_ORG')
+openai.api_key = os.environ.get('API_KEY')
 
 app = Flask(__name__)
 
